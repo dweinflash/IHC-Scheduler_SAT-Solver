@@ -3,7 +3,7 @@ from ortools.sat.python import cp_model
 
 
 def main():
-    MIN_WEEKLY_MTGS = 7
+    MIN_WEEKLY_MTGS = 1
     MAX_DAILY_MTGS = 1
 
     # This program tries to find an optimal assignment of interpreters to teacher mtg requests.
@@ -12,9 +12,7 @@ def main():
     # The optimal assignment maximizes the number of filled meeting requests.
     mtg_reqs = [[[1, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1]]]
     interp_avails = [[[1,1],[0,1],[0,1],[0,1],[0,1],[0,1],[0,1]],
-                [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,1]]]
-
-    # TODO: Assign interpreters evenly
+                [[0,1],[0,1],[0,0],[0,0],[0,1],[0,1],[0,1]]]
     
     num_interps = len(interp_avails)
     num_teachers = len(mtg_reqs)
@@ -45,16 +43,43 @@ def main():
             for s in all_shifts:
                 model.Add(sum(shifts[(i, t, d, s)] for i in all_interps) <= 1)
 
-    # Interpreters cannot be booked for the same time with different teachers.
+    # Interpreters cannot be booked with multiple teachers at the same time
     for i in all_interps:
         for d in all_days:
             for s in all_shifts:
                 model.Add(sum(shifts[(i, t, d, s)] for t in all_teachers) <= 1)
 
-    # Interpreters work at least MIN_WEEKLY_MTGS per week.
-    # Partial constraint - Model infeasible if all interpreters unable to work MIN_WEEKLY_MTGS per week.
+    # Get min number of weekly meetings an interpreter able to fill
+    min_shifts_worked_weekly = float('inf')
     for i in all_interps:
-        model.Add(sum(shifts[(i, t, d, s)] for t in all_teachers for d in all_days for s in all_shifts) >= MIN_WEEKLY_MTGS)
+        shifts_worked_weekly = 0
+        for t in all_teachers:
+            for d in all_days:
+                shifts_worked_today = 0
+                for s in all_shifts:
+                    if (interp_avails[i][d][s] == 1 and mtg_reqs[t][d][s] == 1):
+                        if (shifts_worked_today < MAX_DAILY_MTGS):
+                            shifts_worked_today += 1
+                            shifts_worked_weekly += 1
+        min_shifts_worked_weekly = min(min_shifts_worked_weekly, shifts_worked_weekly)
+
+    # Get average meeting requests per interpreter
+    tot_mtg_reqs = sum(mtg_reqs[t][d][s] for t in all_teachers for d in all_days for s in all_shifts)
+    avg_weekly_mtgs = tot_mtg_reqs // num_interps
+
+    # Determine number of weekly meetings for each interpreter
+    num_weekly_mtgs = min(avg_weekly_mtgs, min_shifts_worked_weekly)
+    num_weekly_mtgs = max(num_weekly_mtgs, MIN_WEEKLY_MTGS)
+    num_weekly_mtgs = min(num_weekly_mtgs, MAX_DAILY_MTGS*7)
+
+    # Try to distribute interpreters evenly
+    # Partial constraint - Model infeasible if no interpreter able to work num_weekly_mtgs.
+    for i in all_interps:
+        if (num_weekly_mtgs == avg_weekly_mtgs):
+            model.Add(sum(shifts[(i, t, d, s)] for t in all_teachers for d in all_days for s in all_shifts) == num_weekly_mtgs)
+        else:
+            model.Add(sum(shifts[(i, t, d, s)] for t in all_teachers for d in all_days for s in all_shifts) >= num_weekly_mtgs)
+
 
     # Interpreters work at most MAX_DAILY_MTGS per day.
     for i in all_interps:
