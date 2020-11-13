@@ -10,9 +10,15 @@ def main():
     # Each interpreter includes their availability in a bit map for each day. (1 = available)
     # Each teacher includes their meeting requests in a bit map for each day. (1 = meeting request)
     # The optimal assignment maximizes the number of filled meeting requests.
-    mtg_reqs = [[[1, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1], [0, 1]]]
-    interp_avails = [[[1,1],[0,1],[0,1],[0,1],[0,1],[0,1],[0,1]],
-                [[0,1],[0,1],[0,0],[0,0],[0,1],[0,1],[0,1]]]
+    mtg_reqs = [
+        [[0,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]],
+        [[0,0],[0,0],[0,0],[0,0],[0,0],[1,0],[1,0]],
+        [[0,0],[0,0],[0,0],[0,0],[0,0],[1,0],[1,0]]
+    ]
+    interp_avails = [
+        [[1,0],[1,0],[1,0],[1,0],[1,0],[0,0],[0,0]],
+        [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]
+    ]
     
     num_interps = len(interp_avails)
     num_teachers = len(mtg_reqs)
@@ -61,7 +67,7 @@ def main():
                         if (shifts_worked_today < MAX_DAILY_MTGS):
                             shifts_worked_today += 1
                             shifts_worked_weekly += 1
-        min_shifts_worked_weekly = min(min_shifts_worked_weekly, shifts_worked_weekly)
+            min_shifts_worked_weekly = min(min_shifts_worked_weekly, shifts_worked_weekly)
 
     # Get average meeting requests per interpreter
     tot_mtg_reqs = sum(mtg_reqs[t][d][s] for t in all_teachers for d in all_days for s in all_shifts)
@@ -72,38 +78,33 @@ def main():
     num_weekly_mtgs = max(num_weekly_mtgs, MIN_WEEKLY_MTGS)
     num_weekly_mtgs = min(num_weekly_mtgs, MAX_DAILY_MTGS*7)
 
-    # Try to distribute interpreters evenly
-    # Partial constraint - Model infeasible if no interpreter able to work num_weekly_mtgs.
+    # Interpreters work a fair amount of shifts
     for i in all_interps:
         if (num_weekly_mtgs == avg_weekly_mtgs):
             model.Add(sum(shifts[(i, t, d, s)] for t in all_teachers for d in all_days for s in all_shifts) == num_weekly_mtgs)
         else:
             model.Add(sum(shifts[(i, t, d, s)] for t in all_teachers for d in all_days for s in all_shifts) >= num_weekly_mtgs)
 
+    # Determine number of weekly meetings for each teacher
+    tot_interp_avails = sum(mtg_reqs[i][d][s] for i in all_interps for d in all_days for s in all_shifts)
+    
+    if (tot_mtg_reqs > tot_interp_avails): 
+        num_weekly_mtgs = 0
+
+    # print(num_weekly_mtgs)
+    # print(avg_weekly_mtgs)
+
+    # Teachers get a fair amount of interpreters
+    for t in all_teachers:
+        if (num_weekly_mtgs == avg_weekly_mtgs):
+            model.Add(sum(shifts[(i, t, d, s)] for i in all_interps for d in all_days for s in all_shifts) >= num_weekly_mtgs)
+        else:
+            model.Add(sum(shifts[(i, t, d, s)] for i in all_interps for d in all_days for s in all_shifts) > num_weekly_mtgs)
 
     # Interpreters work at most MAX_DAILY_MTGS per day.
     for i in all_interps:
         for d in all_days:
             model.Add(sum(shifts[(i, t, d, s)] for t in all_teachers for s in all_shifts) <= MAX_DAILY_MTGS)
-
-    # Try to distribute the shifts evenly, so that each nurse works
-    # min_shifts_per_nurse shifts. If this is not possible, because the total
-    # number of shifts is not divisible by the number of nurses, some nurses will
-    # be assigned one more shift.
-    '''
-    min_shifts_per_nurse = (num_shifts * num_days) // num_nurses
-    if num_shifts * num_days % num_nurses == 0:
-        max_shifts_per_nurse = min_shifts_per_nurse
-    else:
-        max_shifts_per_nurse = min_shifts_per_nurse + 1
-    for n in all_nurses:
-        num_shifts_worked = 0
-        for d in all_days:
-            for s in all_shifts:
-                num_shifts_worked += shifts[(n, d, s)]
-        model.Add(min_shifts_per_nurse <= num_shifts_worked)
-        model.Add(num_shifts_worked <= max_shifts_per_nurse)
-    '''
 
     # Optimize the following objective function.
     # pylint: disable=g-complex-comprehension
