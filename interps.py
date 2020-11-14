@@ -4,7 +4,7 @@ from ortools.sat.python import cp_model
 # This program tries to find an optimal assignment of interpreters to teacher mtg requests.
 # Each interpreter includes their availability in a bit map for each day. (1 = available)
 # Each teacher includes their meeting requests in a bit map for each day. (1 = meeting request)
-# The optimal assignment maximizes the number of filled meeting requests.
+# The optimal assignment maximizes the number of filled meeting requests subject so some constraints.
 
 MIN_WEEKLY_MTGS = 1
 MAX_DAILY_MTGS = 4
@@ -25,6 +25,9 @@ def model(interp_avails, mtg_reqs, min_weekly_mtgs=MIN_WEEKLY_MTGS, max_daily_mt
     all_days = range(num_days)
     all_shifts = range(num_shifts)
     
+    tot_interp_avails = sum(interp_avails[i][d][s] for i in all_interps for d in all_days for s in all_shifts)
+    tot_mtg_reqs = sum(mtg_reqs[t][d][s] for t in all_teachers for d in all_days for s in all_shifts)
+
     # Create the model
     model = cp_model.CpModel()
 
@@ -57,46 +60,38 @@ def model(interp_avails, mtg_reqs, min_weekly_mtgs=MIN_WEEKLY_MTGS, max_daily_mt
     # Get min number of weekly meetings an interpreter able to fill
     min_shifts_worked_weekly = float('inf')
     for i in all_interps:
-        shifts_worked_weekly = 0
+        shifts_worked_weekly = [[0 for s in all_shifts] for d in all_days]
         for t in all_teachers:
             for d in all_days:
-                shifts_worked_today = 0
                 for s in all_shifts:
                     if (interp_avails[i][d][s] == 1 and mtg_reqs[t][d][s] == 1):
+                        shifts_worked_today = sum(shifts_worked_weekly[d])
                         if (shifts_worked_today < max_daily_mtgs):
-                            shifts_worked_today += 1
-                            shifts_worked_weekly += 1
-            min_shifts_worked_weekly = min(min_shifts_worked_weekly, shifts_worked_weekly)
-
-    # Get average meeting requests per interpreter
-    tot_mtg_reqs = sum(mtg_reqs[t][d][s] for t in all_teachers for d in all_days for s in all_shifts)
-    avg_weekly_mtgs = tot_mtg_reqs // num_interps
+                            shifts_worked_weekly[d][s] = 1
+        sum_shifts_worked_weekly = sum(shifts_worked_weekly[d][s] for d in all_days for s in all_shifts)
+        min_shifts_worked_weekly = min(min_shifts_worked_weekly, sum_shifts_worked_weekly)
 
     # Determine number of weekly meetings for each interpreter
+    avg_weekly_mtgs = tot_mtg_reqs // num_interps
     num_weekly_mtgs = min(avg_weekly_mtgs, min_shifts_worked_weekly)
-    num_weekly_mtgs = max(num_weekly_mtgs, min_weekly_mtgs)
-    #num_weekly_mtgs = min(num_weekly_mtgs, max_daily_mtgs*7)
 
-    # Model counts (1,1) and (0,0) as TRUE matches
-    num_weekly_mtgs *= 2
+    # Determine number of weekly meetings for each teacher
+    if (tot_mtg_reqs > tot_interp_avails or num_teachers > num_interps): 
+        num_weekly_mtgs = num_weekly_mtgs // num_teachers
+        
+    num_weekly_mtgs = max(num_weekly_mtgs, min_weekly_mtgs)
 
     # Interpreters work a fair amount of shifts
     for i in all_interps:
         if (num_weekly_mtgs == avg_weekly_mtgs):
-            model.Add(sum(shifts[(i, t, d, s)] for t in all_teachers for d in all_days for s in all_shifts) >= num_weekly_mtgs)
+            model.Add(sum(shifts[(i, t, d, s)] for t in all_teachers for d in all_days for s in all_shifts) == num_weekly_mtgs)
         else:
             model.Add(sum(shifts[(i, t, d, s)] for t in all_teachers for d in all_days for s in all_shifts) >= num_weekly_mtgs)
 
-    # Determine number of weekly meetings for each teacher
-    tot_interp_avails = sum(interp_avails[i][d][s] for i in all_interps for d in all_days for s in all_shifts)
-    
-    if (tot_mtg_reqs > tot_interp_avails): 
-        num_weekly_mtgs = 0
-
     # Teachers get a fair amount of interpreters
     for t in all_teachers:
-        if (num_weekly_mtgs == avg_weekly_mtgs):
-            model.Add(sum(shifts[(i, t, d, s)] for i in all_interps for d in all_days for s in all_shifts) >= num_weekly_mtgs)
+        if (tot_mtg_reqs > tot_interp_avails):
+            model.Add(sum(shifts[(i, t, d, s)] for i in all_interps for d in all_days for s in all_shifts) == num_weekly_mtgs)
         else:
             model.Add(sum(shifts[(i, t, d, s)] for i in all_interps for d in all_days for s in all_shifts) >= num_weekly_mtgs)
 

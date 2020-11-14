@@ -12,6 +12,9 @@ class TestModel(unittest.TestCase):
         # [ [interp1,], [interp2,], ..]
         # [ [teacher1,], [teacher2,], ..]
 
+        if(res == "INFEASIBLE"):
+            return res
+
         group = []
         res = res.split('\n')
 
@@ -155,7 +158,10 @@ class TestModel(unittest.TestCase):
             [[1,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]
         ]
 
-        res = model(interp_avails, mtg_reqs)
+        min_weekly_mtgs = 1
+        max_daily_mtgs = 1
+
+        res = model(interp_avails, mtg_reqs, min_weekly_mtgs, max_daily_mtgs)
         res_interps = self.group_results_by(res, "Interpreters")
         res_interps_num = len(res_interps)
         
@@ -173,8 +179,12 @@ class TestModel(unittest.TestCase):
             [[1,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]
         ]
 
-        res = model(interp_avails, mtg_reqs)
+        min_weekly_mtgs = 1
+        max_daily_mtgs = 1
+
+        res = model(interp_avails, mtg_reqs, min_weekly_mtgs, max_daily_mtgs)
         res_interps = self.group_results_by(res, "Interpreters")
+
         res_interps_num = len(res_interps)
         res_shifts_num = len(res_interps[0])
         
@@ -193,7 +203,7 @@ class TestModel(unittest.TestCase):
             [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
         ]
 
-        res = model(interp_avails, mtg_reqs)
+        res = model(interp_avails, mtg_reqs, MIN_WEEKLY_MTGS, MAX_DAILY_MTGS)
         res_interps = self.group_results_by(res, "Interpreters")
         res_interps_num = len(res_interps)
         res_interps1_shifts = len(res_interps[0])
@@ -203,6 +213,71 @@ class TestModel(unittest.TestCase):
         self.assertEqual(res_interps1_shifts, 5)
         self.assertEqual(res_interps2_shifts, 2)
 
+    def test_teachers_share_interp(self):
+        """
+        Test two teachers able to share one interpreter
+        """
+        interp_avails = [
+            [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
+        ]
+        mtg_reqs = [
+            [[0,0],[0,0],[0,0],[1,0],[1,0],[1,0],[1,0]],
+            [[1,0],[1,0],[1,0],[0,0],[0,0],[0,0],[0,0]]
+        ]
+
+        res = model(interp_avails, mtg_reqs, MIN_WEEKLY_MTGS, MAX_DAILY_MTGS)
+        res_teachers = self.group_results_by(res, "Teachers")
+        res_teachers_num = len(res_teachers)
+        res_teachers1_mtgs = len(res_teachers[0])
+        res_teachers2_mtgs = len(res_teachers[1])
+
+        self.assertEqual(res_teachers_num, 2)
+        self.assertEqual(res_teachers1_mtgs, 4)
+        self.assertEqual(res_teachers2_mtgs, 3)
+    
+    def test_teachers_share_even(self):
+        """
+        Test one teacher sacrifices mtgs to share interp evenly
+        """
+        interp_avails = [
+            [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
+        ]
+        mtg_reqs = [
+            [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]],
+            [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
+        ]
+
+        res = model(interp_avails, mtg_reqs, MIN_WEEKLY_MTGS, MAX_DAILY_MTGS)
+        res_teachers = self.group_results_by(res, "Teachers")
+        res_teachers_num = len(res_teachers)
+        res_teachers1_mtgs = len(res_teachers[0])
+        res_teachers2_mtgs = len(res_teachers[1])
+
+        self.assertEqual(res_teachers_num, 2)
+        self.assertEqual(res_teachers1_mtgs, 3)
+        self.assertEqual(res_teachers2_mtgs, 3)
+
+    def test_interps_share_even(self):
+        """
+        Test one interp sacrifices mtgs to share mtgs evenly
+        """
+        interp_avails = [
+            [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]],
+            [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
+        ]
+        mtg_reqs = [
+            [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
+        ]
+
+        res = model(interp_avails, mtg_reqs, MIN_WEEKLY_MTGS, MAX_DAILY_MTGS)
+        res_interps = self.group_results_by(res, "Interpreters")
+        res_interps_num = len(res_interps)
+        res_interps1_shifts = len(res_interps[0])
+        res_interps2_shifts = len(res_interps[1])
+
+        self.assertEqual(res_interps_num, 2)
+        self.assertEqual(res_interps1_shifts, 3)
+        self.assertEqual(res_interps2_shifts, 3)
 
 if __name__ == '__main__':
     unittest.main()
