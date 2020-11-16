@@ -1,0 +1,342 @@
+Total Meeting Requests: 279
+Total Meetings Matched: 278
+
+Interpreter:  1 Teacher: 15 Day:  2 Shift:  2
+Interpreter:  1 Teacher:  6 Day:  2 Shift:  4
+Interpreter:  1 Teacher:  6 Day:  3 Shift:  8
+Interpreter:  1 Teacher:  3 Day:  3 Shift: 10
+
+Interpreter:  2 Teacher: 11 Day:  1 Shift:  2
+Interpreter:  2 Teacher:  5 Day:  1 Shift:  6
+Interpreter:  2 Teacher: 17 Day:  2 Shift:  3
+Interpreter:  2 Teacher: 16 Day:  2 Shift:  5
+Interpreter:  2 Teacher: 10 Day:  3 Shift:  4
+Interpreter:  2 Teacher:  7 Day:  3 Shift:  7
+
+Interpreter:  3 Teacher: 13 Day:  1 Shift:  2
+Interpreter:  3 Teacher: 10 Day:  1 Shift: 10
+Interpreter:  3 Teacher:  6 Day:  2 Shift:  1
+Interpreter:  3 Teacher: 12 Day:  2 Shift:  2
+Interpreter:  3 Teacher:  2 Day:  3 Shift:  2
+Interpreter:  3 Teacher:  1 Day:  3 Shift:  7
+
+Interpreter:  4 Teacher:  2 Day:  1 Shift:  6
+Interpreter:  4 Teacher:  1 Day:  1 Shift:  9
+Interpreter:  4 Teacher:  2 Day:  2 Shift:  1
+Interpreter:  4 Teacher: 16 Day:  2 Shift:  8
+Interpreter:  4 Teacher:  8 Day:  3 Shift:  6
+Interpreter:  4 Teacher: 12 Day:  4 Shift:  3
+
+Interpreter:  5 Teacher: 12 Day:  2 Shift:  4
+Interpreter:  5 Teacher: 10 Day:  2 Shift:  5
+Interpreter:  5 Teacher: 28 Day:  3 Shift:  4
+Interpreter:  5 Teacher: 11 Day:  3 Shift:  6
+Interpreter:  5 Teacher:  5 Day:  4 Shift:  4
+
+Interpreter:  6 Teacher: 11 Day:  2 Shift:  8
+Interpreter:  6 Teacher:  3 Day:  2 Shift:  9
+Interpreter:  6 Teacher: 16 Day:  3 Shift:  6
+Interpreter:  6 Teacher:  5 Day:  4 Shift:  3
+
+Interpreter:  7 Teacher:  6 Day:  1 Shift:  8
+Interpreter:  7 Teacher: 15 Day:  3 Shift:  4
+Interpreter:  7 Teacher: 11 Day:  3 Shift:  5
+
+Interpreter:  8 Teacher: 12 Day:  1 Shift:  6
+Interpreter:  8 Teacher:  1 Day:  1 Shift: 10
+
+Interpreter:  9 Teacher: 12 Day:  1 Shift:  3
+Interpreter:  9 Teacher:  3 Day:  1 Shift:  4
+Interpreter:  9 Teacher: 15 Day:  3 Shift:  5
+Interpreter:  9 Teacher: 25 Day:  3 Shift:  7
+
+Interpreter: 10 Teacher:  4 Day:  1 Shift:  8
+Interpreter: 10 Teacher: 15 Day:  1 Shift: 10
+
+Interpreter: 11 Teacher: 12 Day:  4 Shift:  5
+
+Interpreter: 12 Teacher: 16 Day:  2 Shift:  2
+Interpreter: 12 Teacher: 15 Day:  2 Shift:  4
+Interpreter: 12 Teacher:  6 Day:  3 Shift:  1
+Interpreter: 12 Teacher: 18 Day:  3 Shift:  2
+
+Interpreter: 13 Teacher: 10 Day:  2 Shift:  2
+Interpreter: 13 Teacher: 15 Day:  2 Shift:  3
+Interpreter: 13 Teacher: 19 Day:  3 Shift:  2
+Interpreter: 13 Teacher:  5 Day:  3 Shift:  5
+Interpreter: 13 Teacher:  2 Day:  4 Shift:  3
+
+Interpreter: 14 Teacher: 14 Day:  1 Shift:  3
+Interpreter: 14 Teacher: 17 Day:  1 Shift:  5
+Interpreter: 14 Teacher:  4 Day:  2 Shift:  1
+Interpreter: 14 Teacher: 11 Day:  2 Shift:  2
+Interpreter: 14 Teacher:  5 Day:  3 Shift:  3
+Interpreter: 14 Teacher:  5 Day:  4 Shift:  2
+
+Interpreter: 15 Teacher:  5 Day:  4 Shift:  1
+
+Interpreter: 16 Teacher: 15 Day:  1 Shift:  9
+Interpreter: 16 Teacher: 27 Day:  2 Shift:  5
+Interpreter: 16 Teacher: 10 Day:  2 Shift:  6
+Interpreter: 16 Teacher:  5 Day:  3 Shift:  7
+Interpreter: 16 Teacher: 15 Day:  4 Shift:  3
+
+Interpreter: 17 Teacher:  4 Day:  1 Shift:  9
+Interpreter: 17 Teacher:  3 Day:  1 Shift: 10
+Interpreter: 17 Teacher:  4 Day:  2 Shift:  2
+Interpreter: 17 Teacher:  7 Day:  2 Shift: 10
+Interpreter: 17 Teacher: 21 Day:  3 Shift:  6
+Interpreter: 17 Teacher: 21 Day:  3 Shift:  7
+Interpreter: 17 Teacher:  7 Day:  4 Shift:  2
+
+Interpreter: 18 Teacher: 20 Day:  1 Shift:  7
+Interpreter: 18 Teacher: 11 Day:  1 Shift:  8
+Interpreter: 18 Teacher:  3 Day:  2 Shift:  8
+Interpreter: 18 Teacher: 18 Day:  2 Shift: 10
+Interpreter: 18 Teacher: 15 Day:  4 Shift:  2
+
+Interpreter: 19 Teacher: 20 Day:  1 Shift:  5
+Interpreter: 19 Teacher: 18 Day:  1 Shift: 10
+Interpreter: 19 Teacher:  3 Day:  2 Shift:  5
+Interpreter: 19 Teacher: 16 Day:  2 Shift:  6
+Interpreter: 19 Teacher:  2 Day:  3 Shift:  1
+Interpreter: 19 Teacher: 36 Day:  3 Shift:  7
+
+Interpreter: 20 Teacher: 17 Day:  1 Shift:  8
+Interpreter: 20 Teacher: 28 Day:  2 Shift:  8
+Interpreter: 20 Teacher:  1 Day:  2 Shift:  9
+Interpreter: 20 Teacher:  5 Day:  4 Shift:  7
+
+Interpreter: 21 Teacher: 26 Day:  3 Shift:  4
+Interpreter: 21 Teacher: 26 Day:  3 Shift:  5
+Interpreter: 21 Teacher: 10 Day:  4 Shift:  2
+
+Interpreter: 22 Teacher: 22 Day:  1 Shift:  4
+Interpreter: 22 Teacher: 11 Day:  1 Shift:  5
+
+Interpreter: 23 Teacher:  8 Day:  1 Shift:  4
+Interpreter: 23 Teacher: 24 Day:  1 Shift:  5
+Interpreter: 23 Teacher: 33 Day:  2 Shift:  6
+Interpreter: 23 Teacher:  2 Day:  2 Shift: 11
+Interpreter: 23 Teacher: 10 Day:  3 Shift:  2
+Interpreter: 23 Teacher: 32 Day:  3 Shift:  5
+Interpreter: 23 Teacher: 12 Day:  4 Shift:  6
+
+Interpreter: 24 Teacher: 14 Day:  2 Shift:  3
+Interpreter: 24 Teacher:  8 Day:  2 Shift:  5
+Interpreter: 24 Teacher: 12 Day:  3 Shift:  5
+Interpreter: 24 Teacher:  2 Day:  4 Shift:  5
+
+Interpreter: 25 Teacher:  2 Day:  2 Shift:  2
+Interpreter: 25 Teacher: 18 Day:  2 Shift:  3
+Interpreter: 25 Teacher: 11 Day:  4 Shift:  5
+Interpreter: 25 Teacher: 11 Day:  4 Shift:  6
+
+Interpreter: 26 Teacher:  2 Day:  1 Shift:  2
+Interpreter: 26 Teacher: 20 Day:  1 Shift:  4
+Interpreter: 26 Teacher: 19 Day:  3 Shift:  4
+Interpreter: 26 Teacher: 33 Day:  3 Shift:  6
+
+Interpreter: 27 Teacher:  4 Day:  1 Shift:  5
+Interpreter: 27 Teacher: 15 Day:  1 Shift:  7
+Interpreter: 27 Teacher: 27 Day:  3 Shift:  5
+Interpreter: 27 Teacher: 37 Day:  3 Shift:  6
+
+Interpreter: 28 Teacher: 12 Day:  1 Shift:  4
+Interpreter: 28 Teacher: 35 Day:  2 Shift:  5
+Interpreter: 28 Teacher: 17 Day:  2 Shift:  6
+Interpreter: 28 Teacher:  4 Day:  3 Shift:  9
+Interpreter: 28 Teacher:  2 Day:  4 Shift:  1
+Interpreter: 28 Teacher: 14 Day:  4 Shift:  5
+
+Interpreter: 29 Teacher: 17 Day:  2 Shift:  2
+Interpreter: 29 Teacher:  6 Day:  2 Shift: 10
+Interpreter: 29 Teacher: 14 Day:  3 Shift:  3
+Interpreter: 29 Teacher: 35 Day:  3 Shift:  5
+
+Interpreter: 30 Teacher: 15 Day:  2 Shift:  5
+Interpreter: 30 Teacher:  4 Day:  2 Shift:  6
+Interpreter: 30 Teacher:  1 Day:  3 Shift:  5
+Interpreter: 30 Teacher: 27 Day:  3 Shift:  6
+
+Interpreter: 31 Teacher: 24 Day:  1 Shift:  6
+Interpreter: 31 Teacher:  9 Day:  2 Shift:  4
+Interpreter: 31 Teacher:  9 Day:  2 Shift:  5
+Interpreter: 31 Teacher: 30 Day:  3 Shift:  6
+Interpreter: 31 Teacher: 10 Day:  3 Shift:  7
+Interpreter: 31 Teacher:  9 Day:  4 Shift:  5
+Interpreter: 31 Teacher:  5 Day:  4 Shift:  6
+
+Interpreter: 32 Teacher: 11 Day:  2 Shift:  5
+Interpreter: 32 Teacher:  5 Day:  2 Shift:  7
+Interpreter: 32 Teacher:  5 Day:  3 Shift:  6
+Interpreter: 32 Teacher: 11 Day:  3 Shift:  7
+
+Interpreter: 33 Teacher:  1 Day:  1 Shift:  8
+Interpreter: 33 Teacher: 10 Day:  1 Shift:  9
+Interpreter: 33 Teacher:  2 Day:  2 Shift:  5
+Interpreter: 33 Teacher: 27 Day:  2 Shift:  6
+
+Interpreter: 34 Teacher: 16 Day:  1 Shift:  6
+Interpreter: 34 Teacher: 18 Day:  1 Shift:  9
+Interpreter: 34 Teacher:  4 Day:  3 Shift: 10
+Interpreter: 34 Teacher:  2 Day:  3 Shift: 11
+
+Interpreter: 35 Teacher: 10 Day:  1 Shift:  2
+Interpreter: 35 Teacher: 15 Day:  1 Shift:  3
+Interpreter: 35 Teacher: 14 Day:  2 Shift:  6
+Interpreter: 35 Teacher: 33 Day:  2 Shift:  7
+Interpreter: 35 Teacher: 15 Day:  3 Shift:  2
+Interpreter: 35 Teacher:  8 Day:  4 Shift:  6
+Interpreter: 35 Teacher: 15 Day:  4 Shift:  7
+
+Interpreter: 36 Teacher:  6 Day:  1 Shift:  3
+Interpreter: 36 Teacher: 13 Day:  3 Shift:  2
+Interpreter: 36 Teacher: 11 Day:  3 Shift:  3
+Interpreter: 36 Teacher:  9 Day:  4 Shift:  4
+
+Interpreter: 37 Teacher:  2 Day:  1 Shift:  4
+Interpreter: 37 Teacher: 10 Day:  2 Shift: 10
+Interpreter: 37 Teacher:  1 Day:  2 Shift: 11
+Interpreter: 37 Teacher: 11 Day:  3 Shift:  4
+Interpreter: 37 Teacher: 39 Day:  3 Shift:  5
+Interpreter: 37 Teacher:  2 Day:  4 Shift:  6
+
+Interpreter: 38 Teacher:  2 Day:  1 Shift:  1
+Interpreter: 38 Teacher: 14 Day:  1 Shift:  2
+Interpreter: 38 Teacher: 13 Day:  2 Shift:  2
+Interpreter: 38 Teacher: 11 Day:  2 Shift:  4
+Interpreter: 38 Teacher:  5 Day:  3 Shift:  1
+Interpreter: 38 Teacher: 19 Day:  3 Shift:  3
+Interpreter: 38 Teacher: 12 Day:  4 Shift:  2
+Interpreter: 38 Teacher: 15 Day:  4 Shift:  4
+
+Interpreter: 39 Teacher:  7 Day:  1 Shift:  5
+Interpreter: 39 Teacher: 15 Day:  1 Shift:  6
+Interpreter: 39 Teacher: 10 Day:  3 Shift:  5
+
+Interpreter: 40 Teacher: 13 Day:  1 Shift:  3
+Interpreter: 40 Teacher:  9 Day:  1 Shift:  5
+Interpreter: 40 Teacher: 14 Day:  2 Shift:  2
+
+Interpreter: 41 Teacher: 12 Day:  1 Shift:  2
+Interpreter: 41 Teacher:  8 Day:  2 Shift:  2
+Interpreter: 41 Teacher: 16 Day:  3 Shift:  2
+Interpreter: 41 Teacher: 30 Day:  3 Shift:  5
+
+Interpreter: 42 Teacher: 12 Day:  2 Shift:  3
+Interpreter: 42 Teacher: 18 Day:  3 Shift:  3
+Interpreter: 42 Teacher:  8 Day:  4 Shift:  5
+
+Interpreter: 43 Teacher: 15 Day:  1 Shift:  2
+Interpreter: 43 Teacher:  9 Day:  1 Shift:  3
+Interpreter: 43 Teacher: 16 Day:  3 Shift:  4
+Interpreter: 43 Teacher: 25 Day:  3 Shift:  6
+
+Interpreter: 44 Teacher:  2 Day:  1 Shift:  3
+Interpreter: 44 Teacher: 16 Day:  1 Shift:  5
+Interpreter: 44 Teacher:  2 Day:  2 Shift:  6
+Interpreter: 44 Teacher:  8 Day:  3 Shift:  4
+
+Interpreter: 45 Teacher:  9 Day:  1 Shift:  2
+Interpreter: 45 Teacher: 13 Day:  1 Shift:  6
+Interpreter: 45 Teacher: 11 Day:  4 Shift:  3
+
+Interpreter: 46 Teacher:  9 Day:  1 Shift:  4
+Interpreter: 46 Teacher:  2 Day:  1 Shift:  5
+Interpreter: 46 Teacher:  5 Day:  2 Shift:  8
+Interpreter: 46 Teacher:  7 Day:  3 Shift:  4
+
+Interpreter: 47 Teacher: 21 Day:  1 Shift:  4
+Interpreter: 47 Teacher: 17 Day:  1 Shift:  6
+Interpreter: 47 Teacher:  5 Day:  2 Shift:  3
+
+Interpreter: 48 Teacher: 16 Day:  1 Shift:  3
+Interpreter: 48 Teacher: 23 Day:  1 Shift:  5
+Interpreter: 48 Teacher: 19 Day:  2 Shift:  6
+Interpreter: 48 Teacher: 11 Day:  3 Shift:  2
+
+Interpreter: 49 Teacher:  9 Day:  3 Shift:  2
+Interpreter: 49 Teacher:  5 Day:  3 Shift:  8
+
+Interpreter: 50 Teacher:  5 Day:  1 Shift:  4
+Interpreter: 50 Teacher: 11 Day:  1 Shift:  6
+Interpreter: 50 Teacher: 29 Day:  2 Shift:  4
+Interpreter: 50 Teacher:  4 Day:  3 Shift:  1
+Interpreter: 50 Teacher:  8 Day:  3 Shift:  5
+
+Interpreter: 51 Teacher:  5 Day:  1 Shift:  5
+Interpreter: 51 Teacher:  8 Day:  1 Shift:  6
+
+Interpreter: 52 Teacher: 25 Day:  1 Shift:  5
+Interpreter: 52 Teacher: 26 Day:  1 Shift:  6
+Interpreter: 52 Teacher: 35 Day:  2 Shift:  8
+Interpreter: 52 Teacher: 35 Day:  2 Shift:  9
+Interpreter: 52 Teacher: 37 Day:  3 Shift:  7
+Interpreter: 52 Teacher: 15 Day:  3 Shift:  8
+Interpreter: 52 Teacher: 16 Day:  4 Shift:  5
+Interpreter: 52 Teacher: 16 Day:  4 Shift:  6
+
+Interpreter: 53 Teacher: 17 Day:  1 Shift:  3
+Interpreter: 53 Teacher: 24 Day:  1 Shift:  4
+Interpreter: 53 Teacher: 19 Day:  2 Shift:  3
+Interpreter: 53 Teacher: 33 Day:  2 Shift:  4
+Interpreter: 53 Teacher: 34 Day:  3 Shift:  3
+Interpreter: 53 Teacher: 30 Day:  3 Shift:  4
+Interpreter: 53 Teacher: 16 Day:  4 Shift:  2
+Interpreter: 53 Teacher: 16 Day:  4 Shift:  3
+
+
+Interpreter: 55 Teacher: 34 Day:  1 Shift:  6
+Interpreter: 55 Teacher: 34 Day:  1 Shift:  9
+Interpreter: 55 Teacher: 38 Day:  2 Shift:  5
+Interpreter: 55 Teacher: 36 Day:  2 Shift:  8
+Interpreter: 55 Teacher: 17 Day:  4 Shift:  2
+Interpreter: 55 Teacher: 17 Day:  4 Shift:  5
+
+Interpreter: 56 Teacher: 15 Day:  3 Shift:  9
+Interpreter: 56 Teacher: 15 Day:  3 Shift: 10
+Interpreter: 56 Teacher: 17 Day:  4 Shift:  4
+Interpreter: 56 Teacher: 21 Day:  4 Shift:  5
+
+Interpreter: 57 Teacher: 35 Day:  1 Shift:  5
+Interpreter: 57 Teacher: 35 Day:  1 Shift:  7
+Interpreter: 57 Teacher: 38 Day:  2 Shift:  6
+Interpreter: 57 Teacher: 39 Day:  2 Shift:  7
+Interpreter: 57 Teacher: 41 Day:  3 Shift:  8
+Interpreter: 57 Teacher: 41 Day:  3 Shift: 10
+Interpreter: 57 Teacher: 27 Day:  4 Shift:  5
+Interpreter: 57 Teacher: 26 Day:  4 Shift:  6
+
+Interpreter: 58 Teacher: 36 Day:  1 Shift:  7
+Interpreter: 58 Teacher: 35 Day:  1 Shift:  8
+Interpreter: 58 Teacher: 39 Day:  2 Shift:  5
+Interpreter: 58 Teacher: 40 Day:  2 Shift:  7
+Interpreter: 58 Teacher: 42 Day:  3 Shift:  8
+Interpreter: 58 Teacher: 41 Day:  3 Shift:  9
+Interpreter: 58 Teacher: 31 Day:  4 Shift:  3
+Interpreter: 58 Teacher: 37 Day:  4 Shift:  5
+Interpreter: 58 Teacher: 15 Day:  5 Shift:  2
+
+Interpreter: 59 Teacher: 40 Day:  2 Shift:  8
+Interpreter: 59 Teacher: 41 Day:  2 Shift: 10
+Interpreter: 59 Teacher: 42 Day:  3 Shift: 10
+Interpreter: 59 Teacher: 42 Day:  3 Shift: 11
+Interpreter: 59 Teacher: 43 Day:  4 Shift:  5
+Interpreter: 59 Teacher: 43 Day:  4 Shift:  6
+
+Interpreter: 60 Teacher: 38 Day:  1 Shift:  5
+Interpreter: 60 Teacher: 37 Day:  1 Shift:  6
+Interpreter: 60 Teacher: 43 Day:  3 Shift:  6
+Interpreter: 60 Teacher: 42 Day:  3 Shift:  7
+
+Interpreter: 61 Teacher: 43 Day:  4 Shift:  7
+Interpreter: 61 Teacher: 43 Day:  4 Shift:  8
+Interpreter: 61 Teacher: 18 Day:  5 Shift:  2
+
+Interpreter: 62 Teacher: 43 Day:  1 Shift:  5
+Interpreter: 62 Teacher: 38 Day:  1 Shift:  6
+Interpreter: 62 Teacher: 41 Day:  2 Shift:  8
+Interpreter: 62 Teacher: 41 Day:  2 Shift:  9
+Interpreter: 62 Teacher: 45 Day:  3 Shift:  8
+Interpreter: 62 Teacher: 42 Day:  3 Shift:  9

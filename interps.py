@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
+import json
 from ortools.sat.python import cp_model
 
 # This program tries to find an optimal assignment of interpreters to teacher mtg requests.
-# Each interpreter includes their availability in a bit map for each day. (1 = available)
-# Each teacher includes their meeting requests in a bit map for each day. (1 = meeting request)
-# The optimal assignment maximizes the number of filled meeting requests subject so some constraints.
+# Each interpreter includes their availability in a bit map for each day of week (1 = available).
+# Each teacher includes their meeting requests in a bit map for each day of week (1 = meeting request).
+# The optimal assignment maximizes the number of filled meeting requests subject so some practical and fair constraints.
 
 MIN_WEEKLY_MTGS = 1
-MAX_DAILY_MTGS = 4
+MAX_DAILY_MTGS = 2
 
 class PartialSolutionPrinter(cp_model.CpSolverSolutionCallback):
     """Print intermediate solutions."""
@@ -117,14 +118,14 @@ def model(interp_avails, mtg_reqs, min_weekly_mtgs=MIN_WEEKLY_MTGS, max_daily_mt
         model.Add(sum(shifts[(i, t, d, s)] for t in all_teachers for d in all_days for s in all_shifts) >= num_weekly_mtgs)
         if (num_interps > 1):
             model.Add(sum(shifts[(i, t, d, s)] for t in all_teachers for d in all_days for s in all_shifts) <= 
-                (num_days*max_daily_mtgs)-num_weekly_mtgs)
+                max(num_weekly_mtgs+1, tot_mtg_reqs - (num_interps-1)*num_weekly_mtgs))
 
     # Teachers get a fair amount of interpreters
     for t in all_teachers:
         model.Add(sum(shifts[(i, t, d, s)] for i in all_interps for d in all_days for s in all_shifts) >= num_weekly_mtgs)
         if (num_teachers > 1):
             model.Add(sum(shifts[(i, t, d, s)] for i in all_interps for d in all_days for s in all_shifts) <= 
-                (num_days*max_daily_mtgs)-num_weekly_mtgs)
+                max(num_weekly_mtgs+1, tot_mtg_reqs - (num_interps-1)*num_weekly_mtgs))
 
     # Optimize the objective function
     # pylint: disable=g-complex-comprehension
@@ -145,23 +146,40 @@ def model(interp_avails, mtg_reqs, min_weekly_mtgs=MIN_WEEKLY_MTGS, max_daily_mt
 
     # Get model results
     for i in all_interps:
-        for t in all_teachers:
-            for d in all_days:
-                for s in all_shifts:
+        for d in all_days:
+            for s in all_shifts:
+                for t in all_teachers:
                     if solver.Value(shifts[(i, t, d, s)]) == 1 and interp_avails[i][d][s] == 1 and mtg_reqs[t][d][s] == 1:
-                        temp = "Interpreter: %s Teacher: %s Day: %s Shift: %s\n"%(i+1, t+1, d+1, s+1) 
-                        res += temp
+                        res += "Interpreter: %2s Teacher: %2s Day: %2s Shift: %2s\n"%(i+1, t+1, d+1, s+1)
         res += "\n"
 
     return res.rstrip()
 
 
 if __name__ == '__main__':
-    # Set MIN_WEEKLY_MTGS and MAX_DAILY_MTGS
-    # Read interp_avails and mtg_reqs from file
-    # res = model(interp_avails, mtg_reqs)
-    # Write res to file
+    interp_avails = None
+    mtg_reqs = None
+
+    with open('interps_map.txt', 'r') as file:
+        interp_avails = file.read().replace('\n', '')
+        interp_avails = json.loads(interp_avails)
     
-    interp_avails = []
-    mtg_reqs = []
+    with open('mtg_reqs.txt', 'r') as file:
+        mtg_reqs = file.read().replace('\n', '')
+        mtg_reqs = json.loads(mtg_reqs)
+
+    tot_mtg_reqs = 0
+
+    if (mtg_reqs):
+        teachers = range(len(mtg_reqs))
+        days = range(len(mtg_reqs[0]))
+        shifts = range(len(mtg_reqs[0][0]))
+        tot_mtg_reqs = sum(mtg_reqs[t][d][s] for t in teachers for d in days for s in shifts)
+
     res = model(interp_avails, mtg_reqs)
+    mtgs_matched = res.count('Shift')
+
+    with open("match_results.txt", "w") as file:
+        file.write("Total Meeting Requests: %s\n" % tot_mtg_reqs)
+        file.write("Total Meetings Matched: %s\n\n" % mtgs_matched)
+        file.write(res)
