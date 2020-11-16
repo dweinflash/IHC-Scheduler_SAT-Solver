@@ -40,30 +40,6 @@ class TestModel(unittest.TestCase):
         group = [key for key in group if key]
         return group
 
-    def test_no_interpreters(self):
-        """
-        Test no interp calendars
-        """
-        interp_avails = []
-        mtg_reqs = [
-            [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
-        ]
-
-        res = model(interp_avails, mtg_reqs, MIN_WEEKLY_MTGS, MAX_DAILY_MTGS)
-        self.assertEqual(res, "No interpreter schedules found")
-
-    def test_no_teachers(self):
-        """
-        Test no teacher calendars
-        """
-        interp_avails = [
-            [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
-        ]
-        mtg_reqs = []
-
-        res = model(interp_avails, mtg_reqs, MIN_WEEKLY_MTGS, MAX_DAILY_MTGS)
-        self.assertEqual(res, "No teacher schedules found")
-
     def test_no_interpreter_available(self):
         """
         Test interpreter unable to attend any meeting requests

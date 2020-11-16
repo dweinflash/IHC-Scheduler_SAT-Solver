@@ -42,13 +42,10 @@ class PartialSolutionPrinter(cp_model.CpSolverSolutionCallback):
         return self._solution_count
 
 def model(interp_avails, mtg_reqs, min_weekly_mtgs=MIN_WEEKLY_MTGS, max_daily_mtgs=MAX_DAILY_MTGS):
-    num_interps = len(interp_avails)
-    num_teachers = len(mtg_reqs)
-
-    if not num_interps: return "No interpreter schedules found"
-    if not num_teachers: return "No teacher schedules found"
     if max_daily_mtgs <= 0: return ""
 
+    num_interps = len(interp_avails)
+    num_teachers = len(mtg_reqs)
     num_days = len(mtg_reqs[0])
     num_shifts = len(mtg_reqs[0][0])
     
@@ -155,6 +152,40 @@ def model(interp_avails, mtg_reqs, min_weekly_mtgs=MIN_WEEKLY_MTGS, max_daily_mt
 
     return res.rstrip()
 
+def statistics(results, interp_avails, mtg_reqs):
+    stats = ""
+    
+    # Total meeting requests
+    teachers = range(len(mtg_reqs))
+    days = range(len(mtg_reqs[0]))
+    shifts = range(len(mtg_reqs[0][0]))
+    tot_mtg_reqs = sum(mtg_reqs[t][d][s] for t in teachers for d in days for s in shifts)
+    stats += "Total Meeting Requests: %s\n" % tot_mtg_reqs
+
+    # Meetings matched
+    mtgs_matched = res.count('Shift')
+    stats += "Total Meetings Matched: %s\n\n" % mtgs_matched
+
+    # Global variables
+    stats += "Min Weekly Meetings: %s\n" % MIN_WEEKLY_MTGS
+    stats += "Max Daily Meetings:  %s\n\n" % MAX_DAILY_MTGS
+
+    # Count meetings per interpreter
+    num_interpreters = len(interp_avails)
+    interp_mtgs = [0] * num_interpreters
+    
+    for i in range(num_interpreters):
+        interp_mtgs[i] = res.count("Interpreter: %2s"%str(i+1))
+
+    min_mtgs = min(interp_mtgs)
+    avg_mtgs = round(sum(interp_mtgs) / float(num_interpreters), 1)
+    max_mtgs = max(interp_mtgs)
+
+    stats += "Min Meetings per Interpreter: %s\n" % min_mtgs
+    stats += "Avg Meetings per Interpreter: %s\n" % avg_mtgs
+    stats += "Max Meetings per Interpreter: %s\n\n" % max_mtgs
+
+    return stats
 
 if __name__ == '__main__':
     interp_avails = None
@@ -168,18 +199,13 @@ if __name__ == '__main__':
         mtg_reqs = file.read().replace('\n', '')
         mtg_reqs = json.loads(mtg_reqs)
 
-    tot_mtg_reqs = 0
-
-    if (mtg_reqs):
-        teachers = range(len(mtg_reqs))
-        days = range(len(mtg_reqs[0]))
-        shifts = range(len(mtg_reqs[0][0]))
-        tot_mtg_reqs = sum(mtg_reqs[t][d][s] for t in teachers for d in days for s in shifts)
-
-    res = model(interp_avails, mtg_reqs)
-    mtgs_matched = res.count('Shift')
+    if (not interp_avails or not mtg_reqs):
+        res = "Missing input files"
+        stats = ""
+    else:
+        res = model(interp_avails, mtg_reqs)
+        stats = statistics(res, interp_avails, mtg_reqs)
 
     with open("match_results.txt", "w") as file:
-        file.write("Total Meeting Requests: %s\n" % tot_mtg_reqs)
-        file.write("Total Meetings Matched: %s\n\n" % mtgs_matched)
+        file.write(stats)
         file.write(res)

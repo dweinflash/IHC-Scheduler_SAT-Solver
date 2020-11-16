@@ -1,6 +1,13 @@
 Total Meeting Requests: 279
 Total Meetings Matched: 278
 
+Min Weekly Meetings: 1
+Max Daily Meetings:  2
+
+Min Meetings per Interpreter: 0
+Avg Meetings per Interpreter: 4.5
+Max Meetings per Interpreter: 9
+
 Interpreter:  1 Teacher: 15 Day:  2 Shift:  2
 Interpreter:  1 Teacher:  6 Day:  2 Shift:  4
 Interpreter:  1 Teacher:  6 Day:  3 Shift:  8
