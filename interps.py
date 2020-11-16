@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+from statistics import median
 from ortools.sat.python import cp_model
 
 # This program tries to find an optimal assignment of interpreters to teacher mtg requests.
@@ -177,11 +178,14 @@ def statistics(results, interp_avails, mtg_reqs):
     for i in range(num_interpreters):
         interp_mtgs[i] = res.count("Interpreter: %2s"%str(i+1))
 
+    # Meetings per interpreter stats
     min_mtgs = min(interp_mtgs)
+    med_mtgs = median(interp_mtgs)
     avg_mtgs = round(sum(interp_mtgs) / float(num_interpreters), 1)
     max_mtgs = max(interp_mtgs)
 
     stats += "Min Meetings per Interpreter: %s\n" % min_mtgs
+    stats += "Med Meetings per Interpreter: %s\n" % med_mtgs
     stats += "Avg Meetings per Interpreter: %s\n" % avg_mtgs
     stats += "Max Meetings per Interpreter: %s\n\n" % max_mtgs
 
