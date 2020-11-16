@@ -191,7 +191,7 @@ class TestModel(unittest.TestCase):
         self.assertEqual(res_interps_num, 1)
         self.assertEqual(res_shifts_num, 1)
 
-    def test_interps_share_mtgs(self):
+    def test_interps_share_mtgs1(self):
         """
         Test interpreters share meetings
         """
@@ -213,9 +213,31 @@ class TestModel(unittest.TestCase):
         self.assertEqual(res_interps1_shifts, 5)
         self.assertEqual(res_interps2_shifts, 2)
 
-    def test_teachers_share_interp(self):
+    def test_interps_share_mtgs2(self):
         """
-        Test two teachers able to share one interpreter
+        Test interpreters share meetings
+        """
+        interp_avails = [
+            [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]],
+            [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
+        ]
+        mtg_reqs = [
+            [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
+        ]
+
+        res = model(interp_avails, mtg_reqs, MIN_WEEKLY_MTGS, MAX_DAILY_MTGS)
+        res_interps = self.group_results_by(res, "Interpreters")
+        res_interps_num = len(res_interps)
+        res_interps1_shifts = len(res_interps[0])
+        res_interps2_shifts = len(res_interps[1])
+
+        self.assertEqual(res_interps_num, 2)
+        self.assertEqual(res_interps1_shifts, 3)
+        self.assertEqual(res_interps2_shifts, 4)
+
+    def test_teachers_share_interp1(self):
+        """
+        Test teachers share interpreters
         """
         interp_avails = [
             [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
@@ -235,9 +257,9 @@ class TestModel(unittest.TestCase):
         self.assertEqual(res_teachers1_mtgs, 4)
         self.assertEqual(res_teachers2_mtgs, 3)
     
-    def test_teachers_share_even(self):
+    def test_teachers_share_interp2(self):
         """
-        Test one teacher sacrifices mtgs to share interp evenly
+        Test teachers share interpreters
         """
         interp_avails = [
             [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
@@ -255,29 +277,7 @@ class TestModel(unittest.TestCase):
 
         self.assertEqual(res_teachers_num, 2)
         self.assertEqual(res_teachers1_mtgs, 3)
-        self.assertEqual(res_teachers2_mtgs, 3)
-
-    def test_interps_share_even(self):
-        """
-        Test one interp sacrifices mtgs to share mtgs evenly
-        """
-        interp_avails = [
-            [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]],
-            [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
-        ]
-        mtg_reqs = [
-            [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
-        ]
-
-        res = model(interp_avails, mtg_reqs, MIN_WEEKLY_MTGS, MAX_DAILY_MTGS)
-        res_interps = self.group_results_by(res, "Interpreters")
-        res_interps_num = len(res_interps)
-        res_interps1_shifts = len(res_interps[0])
-        res_interps2_shifts = len(res_interps[1])
-
-        self.assertEqual(res_interps_num, 2)
-        self.assertEqual(res_interps1_shifts, 3)
-        self.assertEqual(res_interps2_shifts, 3)
+        self.assertEqual(res_teachers2_mtgs, 4)
 
 if __name__ == '__main__':
     unittest.main()

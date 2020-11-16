@@ -9,6 +9,37 @@ from ortools.sat.python import cp_model
 MIN_WEEKLY_MTGS = 1
 MAX_DAILY_MTGS = 4
 
+class PartialSolutionPrinter(cp_model.CpSolverSolutionCallback):
+    """Print intermediate solutions."""
+
+    def __init__(self, shifts, interp_avails, mtg_reqs, num_interps, num_teachers, num_days, num_shifts, sols):
+        cp_model.CpSolverSolutionCallback.__init__(self)
+        self._shifts = shifts
+        self._interp_avails = interp_avails
+        self._mtg_reqs = mtg_reqs
+        self._num_interps = num_interps
+        self._num_teachers = num_teachers
+        self._num_days = num_days
+        self._num_shifts = num_shifts
+        self._solutions = set(sols)
+        self._solution_count = 0
+
+    def on_solution_callback(self):
+        if self._solution_count in self._solutions:
+            print('Solution %i' % self._solution_count)
+            for i in range(self._num_interps):
+                for t in range(self._num_teachers):
+                    for d in range(self._num_days):
+                        for s in range(self._num_shifts):
+                            if self.Value(self._shifts[(i, t, d, s)]) == 1 and self._interp_avails[i][d][s] == 1 and self._mtg_reqs[t][d][s] == 1:
+                                temp = "Interpreter: %s Teacher: %s Day: %s Shift: %s\n"%(i+1, t+1, d+1, s+1) 
+                                print(temp)
+            print()
+        self._solution_count += 1
+
+    def solution_count(self):
+        return self._solution_count
+
 def model(interp_avails, mtg_reqs, min_weekly_mtgs=MIN_WEEKLY_MTGS, max_daily_mtgs=MAX_DAILY_MTGS):
     num_interps = len(interp_avails)
     num_teachers = len(mtg_reqs)
@@ -83,17 +114,17 @@ def model(interp_avails, mtg_reqs, min_weekly_mtgs=MIN_WEEKLY_MTGS, max_daily_mt
 
     # Interpreters work a fair amount of shifts
     for i in all_interps:
-        if (num_weekly_mtgs == avg_weekly_mtgs):
-            model.Add(sum(shifts[(i, t, d, s)] for t in all_teachers for d in all_days for s in all_shifts) == num_weekly_mtgs)
-        else:
-            model.Add(sum(shifts[(i, t, d, s)] for t in all_teachers for d in all_days for s in all_shifts) >= num_weekly_mtgs)
+        model.Add(sum(shifts[(i, t, d, s)] for t in all_teachers for d in all_days for s in all_shifts) >= num_weekly_mtgs)
+        if (num_interps > 1):
+            model.Add(sum(shifts[(i, t, d, s)] for t in all_teachers for d in all_days for s in all_shifts) <= 
+                (num_days*max_daily_mtgs)-num_weekly_mtgs)
 
     # Teachers get a fair amount of interpreters
     for t in all_teachers:
-        if (tot_mtg_reqs > tot_interp_avails):
-            model.Add(sum(shifts[(i, t, d, s)] for i in all_interps for d in all_days for s in all_shifts) == num_weekly_mtgs)
-        else:
-            model.Add(sum(shifts[(i, t, d, s)] for i in all_interps for d in all_days for s in all_shifts) >= num_weekly_mtgs)
+        model.Add(sum(shifts[(i, t, d, s)] for i in all_interps for d in all_days for s in all_shifts) >= num_weekly_mtgs)
+        if (num_teachers > 1):
+            model.Add(sum(shifts[(i, t, d, s)] for i in all_interps for d in all_days for s in all_shifts) <= 
+                (num_days*max_daily_mtgs)-num_weekly_mtgs)
 
     # Optimize the objective function
     # pylint: disable=g-complex-comprehension
