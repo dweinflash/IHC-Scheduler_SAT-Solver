@@ -9,7 +9,7 @@ from ortools.sat.python import cp_model
 # The optimal assignment maximizes the number of filled meeting requests subject so some practical and fair constraints.
 
 MIN_WEEKLY_MTGS = 1
-MAX_DAILY_MTGS = 2
+MAX_DAILY_MTGS = 1
 
 class PartialSolutionPrinter(cp_model.CpSolverSolutionCallback):
     """Print intermediate solutions."""
@@ -155,11 +155,21 @@ def model(interp_avails, mtg_reqs, min_weekly_mtgs=MIN_WEEKLY_MTGS, max_daily_mt
 
 def statistics(results, interp_avails, mtg_reqs):
     stats = ""
-    
+    num_teachers = len(mtg_reqs)
+    num_interpreters = len(interp_avails)
+    num_days = len(mtg_reqs[0])
+    num_shifts = len(mtg_reqs[0][0])
+
+    teachers = range(num_teachers)
+    interpreters = range(num_interpreters)
+    days = range(num_days)
+    shifts = range(num_shifts)
+
+    # Teachers & Interpreters
+    stats += "Teachers: %2s\n" % num_teachers
+    stats += "Interpeters: %2s\n\n" % num_interpreters
+
     # Total meeting requests
-    teachers = range(len(mtg_reqs))
-    days = range(len(mtg_reqs[0]))
-    shifts = range(len(mtg_reqs[0][0]))
     tot_mtg_reqs = sum(mtg_reqs[t][d][s] for t in teachers for d in days for s in shifts)
     stats += "Total Meeting Requests: %s\n" % tot_mtg_reqs
 
@@ -172,15 +182,19 @@ def statistics(results, interp_avails, mtg_reqs):
     stats += "Max Daily Meetings:  %s\n\n" % MAX_DAILY_MTGS
 
     # Count meetings per interpreter
-    num_interpreters = len(interp_avails)
     interp_mtgs = [0] * num_interpreters
-    
-    for i in range(num_interpreters):
+    for i in interpreters:
         interp_mtgs[i] = res.count("Interpreter: %2s"%str(i+1))
+
+    # Weekly meetings table
+    stats += "Interpreter Weekly Meetings Table\n"
+    for weekly_mtgs in range(0, (MAX_DAILY_MTGS*num_days)+1):
+        stats += "%2s weekly meetings: %2s\n"%(str(weekly_mtgs), str(interp_mtgs.count(weekly_mtgs)))
+    stats += "\n"
 
     # Meetings per interpreter stats
     min_mtgs = min(interp_mtgs)
-    med_mtgs = median(interp_mtgs)
+    med_mtgs = int(median(interp_mtgs))
     avg_mtgs = round(sum(interp_mtgs) / float(num_interpreters), 1)
     max_mtgs = max(interp_mtgs)
 

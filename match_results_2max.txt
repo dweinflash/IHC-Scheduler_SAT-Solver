@@ -1,11 +1,27 @@
+Teachers: 45
+Interpeters: 62
+
 Total Meeting Requests: 279
 Total Meetings Matched: 278
 
 Min Weekly Meetings: 1
 Max Daily Meetings:  2
 
+Interpreter Weekly Meetings Table
+ 0 weekly meetings:  1
+ 1 weekly meetings:  2
+ 2 weekly meetings:  5
+ 3 weekly meetings:  8
+ 4 weekly meetings: 22
+ 5 weekly meetings:  5
+ 6 weekly meetings: 10
+ 7 weekly meetings:  4
+ 8 weekly meetings:  4
+ 9 weekly meetings:  1
+10 weekly meetings:  0
+
 Min Meetings per Interpreter: 0
-Med Meetings per Interpreter: 4.0
+Med Meetings per Interpreter: 4
 Avg Meetings per Interpreter: 4.5
 Max Meetings per Interpreter: 9
 
