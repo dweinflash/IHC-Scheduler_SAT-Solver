@@ -1,3 +1,5 @@
+Model Runtime: 34.52 secs
+
 Teachers: 45
 Interpeters: 62
 

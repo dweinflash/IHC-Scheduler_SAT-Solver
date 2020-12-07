@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 import json
+import time
 from statistics import median
 from ortools.sat.python import cp_model
 
 # This program tries to find an optimal assignment of interpreters to teacher mtg requests.
 # Each interpreter includes their availability in a bit map for each day of week (1 = available).
 # Each teacher includes their meeting requests in a bit map for each day of week (1 = meeting request).
-# The optimal assignment maximizes the number of filled meeting requests subject so some practical and fair constraints.
+# The optimal assignment maximizes the number of filled meeting requests subject to some practical and fair constraints.
 
 MIN_WEEKLY_MTGS = 1
-MAX_DAILY_MTGS = 1
+MAX_DAILY_MTGS = 2
 
 class PartialSolutionPrinter(cp_model.CpSolverSolutionCallback):
     """Print intermediate solutions."""
@@ -153,7 +154,7 @@ def model(interp_avails, mtg_reqs, min_weekly_mtgs=MIN_WEEKLY_MTGS, max_daily_mt
 
     return res.rstrip()
 
-def statistics(results, interp_avails, mtg_reqs):
+def statistics(results, model_time, interp_avails, mtg_reqs):
     stats = ""
     num_teachers = len(mtg_reqs)
     num_interpreters = len(interp_avails)
@@ -164,6 +165,9 @@ def statistics(results, interp_avails, mtg_reqs):
     interpreters = range(num_interpreters)
     days = range(num_days)
     shifts = range(num_shifts)
+
+    # Model Runtime
+    stats += "Model Runtime: %s secs\n\n" % model_time
 
     # Teachers & Interpreters
     stats += "Teachers: %2s\n" % num_teachers
@@ -184,7 +188,7 @@ def statistics(results, interp_avails, mtg_reqs):
     # Count meetings per interpreter
     interp_mtgs = [0] * num_interpreters
     for i in interpreters:
-        interp_mtgs[i] = res.count("Interpreter: %2s"%str(i+1))
+        interp_mtgs[i] = res.count("Interpreter: %2s "%str(i+1))
 
     # Weekly meetings table
     stats += "Interpreter Weekly Meetings Table\n"
@@ -206,6 +210,7 @@ def statistics(results, interp_avails, mtg_reqs):
     return stats
 
 if __name__ == '__main__':
+    start = time.time()
     interp_avails = None
     mtg_reqs = None
 
@@ -222,7 +227,8 @@ if __name__ == '__main__':
         stats = ""
     else:
         res = model(interp_avails, mtg_reqs)
-        stats = statistics(res, interp_avails, mtg_reqs)
+        model_time = round(time.time() - start, 2)
+        stats = statistics(res, model_time, interp_avails, mtg_reqs)
 
     with open("match_results.txt", "w") as file:
         file.write(stats)

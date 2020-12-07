@@ -303,5 +303,23 @@ class TestModel(unittest.TestCase):
         self.assertEqual(res_teachers1_mtgs, 1)
         self.assertEqual(res_teachers2_mtgs, 1)
 
+    def test_demo(self):
+        """
+        Demo model
+        """
+        interp_avails = [
+            [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]],
+            [[0,0],[0,0],[0,0],[0,0],[0,0],[1,0],[1,0]]
+        ]
+        mtg_reqs = [
+            [[1,1],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
+        ]
+
+        MIN_WEEKLY_MTGS = 1
+        MAX_DAILY_MTGS = 1
+
+        res = model(interp_avails, mtg_reqs, MIN_WEEKLY_MTGS, MAX_DAILY_MTGS)
+        print(res)
+
 if __name__ == '__main__':
     unittest.main()
