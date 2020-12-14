@@ -315,7 +315,7 @@ class TestModel(unittest.TestCase):
             [[1,1],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
         ]
 
-        MIN_WEEKLY_MTGS = 1
+        MIN_WEEKLY_MTGS = 10
         MAX_DAILY_MTGS = 1
 
         res = model(interp_avails, mtg_reqs, MIN_WEEKLY_MTGS, MAX_DAILY_MTGS)

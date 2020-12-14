@@ -10,7 +10,7 @@ from ortools.sat.python import cp_model
 # The optimal assignment maximizes the number of filled meeting requests subject to some practical and fair constraints.
 
 MIN_WEEKLY_MTGS = 1
-MAX_DAILY_MTGS = 2
+MAX_DAILY_MTGS = 4
 
 class PartialSolutionPrinter(cp_model.CpSolverSolutionCallback):
     """Print intermediate solutions."""
@@ -131,10 +131,17 @@ def model(interp_avails, mtg_reqs, min_weekly_mtgs=MIN_WEEKLY_MTGS, max_daily_mt
     model.Maximize(
         sum(interp_avails[i][d][s] * mtg_reqs[t][d][s] * shifts[(i, t, d, s)] for i in all_interps
             for t in all_teachers for d in all_days for s in all_shifts))
-    
+
+    # Create Solution Printer
+    sols = range(0)
+    solution_printer = PartialSolutionPrinter(shifts, interp_avails, mtg_reqs,
+                                            num_interps, num_teachers, num_days,
+                                            num_shifts, sols)
+
     # Create the solver and solve
     solver = cp_model.CpSolver()
-    solver.Solve(model)
+    solver.SolveWithSolutionCallback(model, solution_printer)
+    print(solver.ResponseStats())
 
     # Determine if model is INFEASIBLE or OPTIMAL
     status = solver.StatusName()
